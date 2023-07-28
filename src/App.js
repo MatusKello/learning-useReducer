@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import Modal from './components/Modal';
+import data from './data';
+import { useState } from 'react';
+import { TextField, Box, Button } from '@mui/material';
 
-function App() {
+const App = () => {
+  const [movies, setMovies] = useState(data);
+  const [showNotification, setShowNotification] = useState(false);
+  const [movieName, setMovieName] = useState('');
+
+  const submitForm = (e) => {
+    e.preventDefault();
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Box>
+      <form onSubmit={submitForm}>
+        <TextField
+          onChange={(e) => setMovieName(e.target.value)}
+          variant='filled'
+          type='text'
+        ></TextField>
+        <Button variant='contained'>Add</Button>
+      </form>
+    </Box>
   );
-}
+};
 
 export default App;
