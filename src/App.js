@@ -25,6 +25,15 @@ const reducer = (state, action) => {
       ...state,
       showNotification: false,
     };
+  if (action.type === 'REMOVE_MOVIE') {
+    const filteredMovies = state.movies.filter((oneMovie) => {
+      return oneMovie.id !== action.payload;
+    });
+    return {
+      ...state,
+      movies: filteredMovies,
+    };
+  }
   return new Error('Error - no match');
 };
 
@@ -48,6 +57,7 @@ const App = () => {
     } else {
       dispatch({ type: 'NO_MOVIE_NAME' });
     }
+    setMovieName('');
   };
 
   const closeNotification = () => {
@@ -64,6 +74,7 @@ const App = () => {
       )}
       <Box>
         <TextField
+          value={movieName}
           onChange={(e) => setMovieName(e.target.value)}
           variant='filled'
           type='text'
@@ -77,6 +88,13 @@ const App = () => {
           return (
             <div key={oneMovie.id}>
               <Typography>{oneMovie.name}</Typography>
+              <Button
+                onClick={() =>
+                  dispatch({ type: 'REMOVE_MOVIE', payload: oneMovie.id })
+                }
+              >
+                Delete
+              </Button>
             </div>
           );
         })}

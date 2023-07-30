@@ -4,7 +4,7 @@ const Modal = ({ notificationContent, closeNotification }) => {
   useEffect(() => {
     setTimeout(() => {
       closeNotification();
-    }, 3000);
+    }, 2000);
   });
 
   return <div>{notificationContent}</div>;
